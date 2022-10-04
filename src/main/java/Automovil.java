@@ -1,28 +1,30 @@
 package vehiculos;
 
-public class Automovil extends Vehiculo{
-    private int puestos;
-    private static int cantidadAutomoviles;
+import java.util.ArrayList;
 
-    public Automovil(String placa, String nombre, int precio, int peso, Fabricante fabricante, int puestos) {
+public class Automovil extends Vehiculo {
+    int puestos;
+    static int totalAutomoviles;
+    ArrayList<Automovil> automoviles = new ArrayList<Automovil>();
+    
+    public Automovil(String placa,  String nombre, int precio, int peso, Fabricante fabricante, int puestos) {
         super(placa, 4, 100, nombre, precio, peso, "FWD", fabricante);
         this.puestos = puestos;
-        cantidadAutomoviles++;
-    }
-
-    public int getPuestos() {
-        return puestos;
+        automoviles.add(this);
+        totalAutomoviles++;
     }
 
     public void setPuestos(int puestos) {
         this.puestos = puestos;
     }
 
-    public static int getCantidadAutomoviles() {
-        return cantidadAutomoviles;
+    public int getPuestos() {
+        return puestos;
     }
 
-    public static void setCantidadAutomoviles(int cantidadAutomoviles) {
-        Automovil.cantidadAutomoviles = cantidadAutomoviles;
+    public static int getTotalAutomoviles() {
+        return totalAutomoviles;
     }
+
+
 }

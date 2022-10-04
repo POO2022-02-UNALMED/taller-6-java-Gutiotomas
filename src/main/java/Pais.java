@@ -1,31 +1,37 @@
 package vehiculos;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Hashtable;
 
 public class Pais {
-    private String nombre;
-    private static HashMap<Pais, Integer> ventasPorPaises = new HashMap<>();
+    String nombre;
+    static Hashtable <Pais, Integer> lista_paises = new Hashtable <Pais, Integer>();
 
-    public Pais(String nombre){
+    public Pais (String nombre) {
         this.nombre = nombre;
-        ventasPorPaises.put(this, 0);
+        if (lista_paises.containsKey(this)) {
+            lista_paises.put(this, lista_paises.get(this) + 1);
+        } else {
+            lista_paises.put(this, 1);
+        } 
     }
 
-    public void agregarVenta(){
-        ventasPorPaises.put(this, ventasPorPaises.get(this)+1);
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public static Pais paisMasVendedor(){
-        Map.Entry<Pais, Integer> maxEntry = null;
+    public String getNombre() {
+        return nombre;
+    }
 
-        for (Map.Entry<Pais, Integer> entry : ventasPorPaises.entrySet())
-        {
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
-            {
-                maxEntry = entry;
+    public static Pais paisMasVendedor() {
+        int max = 0;
+        Pais pais = null;
+        for (Pais key : lista_paises.keySet()) {
+            if (lista_paises.get(key) > max) {
+                max = lista_paises.get(key);
+                pais = key;
             }
         }
-
-        return maxEntry.getKey();
+        return pais;
     }
 }

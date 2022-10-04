@@ -1,34 +1,43 @@
 package vehiculos;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Hashtable;
 
 public class Fabricante {
-    private String nombre;
-    private Pais pais;
-    private static HashMap<Fabricante, Integer> ventasPorFabrica = new HashMap<>();
+    static Hashtable <Fabricante, Integer> lista_fabricantes = new Hashtable <Fabricante, Integer>();
+    String nombre;
+    Pais pais;
 
-    public Fabricante(String nombre, Pais pais){
+    public Fabricante (String nombre, Pais pais) {
         this.nombre = nombre;
         this.pais = pais;
-        ventasPorFabrica.put(this, 0);
+    }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void agregarVenta(){
-        ventasPorFabrica.put(this, ventasPorFabrica.get(this)+1);
-        pais.agregarVenta();
+    public String getNombre() {
+        return nombre;
     }
 
-    public static Fabricante fabricaMayorVentas(){
-        Map.Entry<Fabricante, Integer> maxEntry = null;
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
 
-        for (Map.Entry<Fabricante, Integer> entry : ventasPorFabrica.entrySet())
-        {
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
-            {
-                maxEntry = entry;
+    public Pais getPais() {
+        return pais;
+    }
+
+    public static Fabricante fabricaMayorVentas() {
+        int max = 0;
+        Fabricante fabricante = null;
+        for (Fabricante key : lista_fabricantes.keySet()) {
+            if (lista_fabricantes.get(key) > max) {
+                max = lista_fabricantes.get(key);
+                fabricante = key;
             }
         }
-
-        return maxEntry.getKey();
+        return fabricante;
     }
+
+
 }
